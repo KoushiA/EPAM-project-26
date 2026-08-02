@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>XYZ Bank - Diwali Coupon</title>
+
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            background:#f4f4f4;
+        }
+
+        .container{
+            width:700px;
+            margin:40px auto;
+            background:white;
+            padding:20px;
+            border-radius:10px;
+            box-shadow:0 0 10px gray;
+        }
+
+        h1{
+            text-align:center;
+            color:darkblue;
+        }
+
+        #welcome{
+            color:blue;
+            font-weight:bold;
+            cursor:pointer;
+            font-size:18px;
+        }
+
+        #steps{
+            background:#fff8c6;
+            border:1px solid gray;
+            padding:15px;
+            margin-bottom:20px;
+        }
+
+        input{
+            padding:8px;
+            width:250px;
+        }
+
+        button{
+            padding:8px 18px;
+            margin:5px;
+            cursor:pointer;
+            font-size:15px;
+        }
+
+        #message{
+            font-weight:bold;
+        }
+
+        #coupon{
+            color:green;
+            font-weight:bold;
+            font-size:20px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>XYZ BANK - DIWALI COUPON</h1>
+
+<p id="welcome" onmouseover="welcomeMessage(this)">
+Welcome Existing Customer
+</p>
+
+<hr>
+
+<div id="steps">
+
+<h3>Steps to Apply</h3>
+
+<ol>
+<li>Click Register.</li>
+<li>Enter Customer ID.</li>
+<li>Click Validate Customer.</li>
+<li>Generate Coupon.</li>
+<li>Use your coupon while shopping.</li>
+</ol>
+
+<button id="registerBtn" onclick="registerCustomer()">
+Register
+</button>
+
+</div>
+
+<h3>Customer Details</h3>
+
+<label><b>Customer ID :</b></label>
+
+<input type="text" id="custid">
+
+<br><br>
+
+<button onclick="validateCustomer()">
+Validate Customer
+</button>
+
+<button onclick="generateCoupon()">
+Generate Coupon
+</button>
+
+<br><br>
+
+<p id="message"></p>
+
+<p id="coupon"></p>
+
+</div>
+
+<script>
+
+var validCustomer = false;
+
+function welcomeMessage(element)
+{
+    alert("Welcome Existing Customer!\nHappy Diwali from XYZ Bank.");
+
+    element.onmouseover = null;
+}
+function registerCustomer()
+{
+    document.getElementById("steps").style.display = "none";
+
+    alert("Registration Successful!");
+}
+
+function validateCustomer()
+{
+    var cid = document.getElementById("custid").value.trim();
+
+    if(cid=="")
+    {
+        alert("Customer ID field cannot be empty.");
+        return;
+    }
+
+    if(cid.toLowerCase().includes("xyz"))
+    {
+        validCustomer = true;
+
+        document.getElementById("message").innerHTML =
+        "Customer ID is VALID.";
+
+        document.getElementById("message").style.color = "green";
+    }
+    else
+    {
+        validCustomer = false;
+
+        document.getElementById("message").innerHTML =
+        "Customer ID is INVALID.";
+
+        document.getElementById("message").style.color = "red";
+    }
+}
+
+function generateCoupon()
+{
+    var cid = document.getElementById("custid").value.trim();
+
+    if(cid=="")
+    {
+        alert("Customer ID field cannot be empty.");
+        return;
+    }
+
+    if(validCustomer==false)
+    {
+        alert("Please validate a valid Customer ID first.");
+        return;
+    }
+
+    var random = Math.floor(Math.random()*9000)+1000;
+
+    var coupon = "DIWALI-" + cid.substring(0,3).toUpperCase() + "-" + random;
+
+    document.getElementById("coupon").innerHTML =
+    "Congratulations!<br><br>Your Coupon Code is : <b>" + coupon + "</b>";
+
+    alert("Coupon Generated Successfully!");
+}
+
+</script>
+
+</body>
+</html>
